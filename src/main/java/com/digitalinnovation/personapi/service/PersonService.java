@@ -1,23 +1,29 @@
-package com.digitalinnovation.personapi;
+package com.digitalinnovation.personapi.service;
 
 import org.springframework.stereotype.Service;
 
+import com.digitalinnovation.personapi.dto.request.PersonDTO;
 import com.digitalinnovation.personapi.dto.response.MessageResponseDTO;
 import com.digitalinnovation.personapi.entity.Person;
+import com.digitalinnovation.personapi.mapper.PersonMapper;
 import com.digitalinnovation.personapi.repository.PersonRepository;
 
 @Service
 public class PersonService {
 
 	private PersonRepository repository;
+	
+	private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
 	public PersonService(PersonRepository repository) {
 		super();
 		this.repository = repository;
 	}
 	
-	public MessageResponseDTO insert(Person person) {
-		Person savedPerson = repository.save(person);
+	public MessageResponseDTO insert(PersonDTO personDTO) {
+		Person personToSave = personMapper.toModel(personDTO);
+		
+		Person savedPerson = repository.save(personToSave);
 		return MessageResponseDTO
 				.builder()
 				.message(
