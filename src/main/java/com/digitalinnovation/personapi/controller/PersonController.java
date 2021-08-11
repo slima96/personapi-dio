@@ -21,16 +21,14 @@ import com.digitalinnovation.personapi.dto.response.MessageResponseDTO;
 import com.digitalinnovation.personapi.exception.PersonNotFoundException;
 import com.digitalinnovation.personapi.service.PersonService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/api/v1/people")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
 	private PersonService service;
-	
-	@Autowired
-	public PersonController(PersonService service) {
-		this.service = service;
-	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
